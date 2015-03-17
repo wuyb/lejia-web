@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <form name="form" ng-submit="login(form)">
+    <div class="form-group">
+      <label for="email">用户名</label>
+      <input type="email" class="form-control" id="email" placeholder="请输入您的邮箱地址" ng-model="user.email">
+    </div>
+    <div class="form-group">
+      <label for="password">密码</label>
+      <input type="password" class="form-control" id="password" placeholder="请输入您的密码" ng-model="user.password">
+    </div>
+    <button type="submit" class="btn btn-default">登录</button>
+  </form>
+</div>
