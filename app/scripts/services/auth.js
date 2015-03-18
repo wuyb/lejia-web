@@ -4,6 +4,7 @@ angular.module('webApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q, configuration) {
     var currentUser = {};
     if($cookieStore.get('token')) {
+      $http.defaults.headers.common['Authorization'] = 'Bearer ' + $cookieStore.get('token');
       currentUser = User.get();
     }
 
@@ -26,6 +27,8 @@ angular.module('webApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
+          // inject the authorization header to all requests
+          $http.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
           currentUser = User.get();
           deferred.resolve(data);
           return cb();

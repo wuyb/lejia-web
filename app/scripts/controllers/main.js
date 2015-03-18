@@ -9,6 +9,11 @@
  */
 angular.module('webApp')
   .controller('MainCtrl', function ($scope, Auth, $location) {
+    var currentUser = Auth.getCurrentUser();
+    if (Auth.isLoggedIn()) {
+      $location.path('/dashboard');
+      return;
+    }
     $scope.user = {};
     $scope.errors = {};
 
@@ -20,8 +25,9 @@ angular.module('webApp')
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function() {
+        .then( function(data) {
           // Logged in, redirect to dashboard
+
           $location.path('/dashboard/');
         })
         .catch( function(err) {

@@ -2,7 +2,7 @@
 
 angular.module('webApp')
   .factory('User', function ($resource, configuration) {
-    return $resource(configuration.apiHost + '/api/users/:id/:controller', {
+    return $resource(configuration.apiHost + 'api/users/:id/:controller', {
       id: '@_id'
     },
     {
