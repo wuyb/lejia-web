@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-hide="user == null">
+<div class="jumbotron" ng-hide="isLoggedIn()">
   <form name="form" ng-submit="login(form)">
     <div class="form-group">
       <label for="email">用户名</label>

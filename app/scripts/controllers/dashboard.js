@@ -9,6 +9,5 @@
  */
 angular.module('webApp')
   .controller('DashboardCtrl', function ($scope, $rootScope, Auth) {
-    $rootScope.user = Auth.getCurrentUser();
   }
 );

@@ -8,8 +8,7 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('MainCtrl', function ($scope, Auth, $location) {
-    var currentUser = Auth.getCurrentUser();
+  .controller('MainCtrl', function ($scope, $rootScope, Auth, $location) {
     if (Auth.isLoggedIn()) {
       $location.path('/dashboard');
       return;
@@ -17,6 +16,9 @@ angular.module('webApp')
     $scope.user = {};
     $scope.errors = {};
 
+    $scope.isLoggedIn = function() {
+      return Auth.isLoggedIn();
+    }
     $scope.login = function(form) {
       $scope.submitted = true;
 
@@ -26,11 +28,12 @@ angular.module('webApp')
           password: $scope.user.password
         })
         .then( function(data) {
-          // Logged in, redirect to dashboard
-
-          $location.path('/dashboard/');
+          // we define the user session management functions/variables in root scope, after user has logged in
+          $rootScope.user = Auth.getCurrentUser();
+          $location.path('/dashboard');
         })
         .catch( function(err) {
+          $rootScope.user = {};
           $scope.errors.other = err.message;
         });
       }
