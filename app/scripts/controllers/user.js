@@ -51,7 +51,13 @@ angular.module('webApp')
     }
 
     $scope.toggleRole = function(role) {
-      var index = $scope.user.roles.indexOf(role);
+      var index = -1;
+      for (var i in $scope.user.roles) {
+        if ($scope.user.roles[i]._id === role._id) {
+          index = i;
+          break;
+        }
+      }
       if (index === -1) {
         $scope.user.roles.push(role);
       } else {
