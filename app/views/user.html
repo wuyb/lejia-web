@@ -19,7 +19,10 @@
     </td>
     <td>{{user.updatedAt | amDateFormat:'MM DD YYYY, h:mm:ss a'}}</td>
     <td>{{user.updatedBy.name}}</td>
-    <td><button ng-click="editUser(user)"  data-toggle="modal" data-target="#create-update-modal">编辑</button></td>
+    <td>
+      <a ng-click="editUser(user)"  data-toggle="modal" data-target="#create-update-modal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
+      <a ng-click="closeUser(user)"  ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a>
+    </td>
   </tr>
 </table>
 
