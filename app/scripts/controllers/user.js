@@ -38,12 +38,13 @@ angular.module('webApp')
       if(form.$valid) {
         $scope.user.$save()
         .then(function(user) {
+          $('#create-update-modal').modal('hide');
           var users = User.query(function() {
             $scope.users = users;
           });
         })
         .catch(function(err) {
-          console.log(err);
+          $('#create-update-modal').modal('hide');
           alert("出错了，请联系管理员。");
         });
       }
