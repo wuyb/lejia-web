@@ -28,16 +28,20 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
       })
+      .when('/users', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
+      .when('/404', {
+        templateUrl: 'views/errors/404.html',
+        controller: 'ErrorCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
   })
 
