@@ -10,8 +10,7 @@ angular.module('webApp')
       $location.path('/');
       return;
     }
-    var user = Auth.getCurrentUser();
-    if (user.role !== 'admin') {
+    if (!Auth.isAdmin()) {
       $location.path('/404');
       return;
     }
@@ -19,7 +18,40 @@ angular.module('webApp')
     // retrieves all the users from backend
     var users = User.query(function() {
       $scope.users = users;
-      console.log("All users : " + JSON.stringify($scope.users));
     });
+
+    // retrieves all the roles
+    var roles = User.allRoles(function() {
+      // remove the normal user role
+      for (var i in roles) {
+        if (roles[i].value === 'user') {
+          roles.splice(i, 1);
+        }
+      }
+      $scope.allRoles = roles;
+    });
+
+    $scope.showErrors = false;
+
+    $scope.saveUser = function() {
+      $scope.showErrors = true;
+    }
+
+    $scope.toggleRole = function(role) {
+      var index = $scope.user.roles.indexOf(role);
+      if (index === -1) {
+        $scope.user.roles.push(role);
+      } else {
+        $scope.user.roles.splice(index, 1);
+      }
+      console.log(JSON.stringify($scope.user));
+    }
+
+    $scope.editUser = function(user) {
+      $scope.user = user;
+    }
+    $scope.addUser = function() {
+      $scope.user = {roles: []};
+    }
   }
 );

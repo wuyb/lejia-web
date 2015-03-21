@@ -1,12 +1,54 @@
+<div class="actions-bar">
+  <button class="btn btn-default" data-toggle="modal" data-target="#create-update-modal" ng-click="addUser()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加新用户 </button>
+</div>
+
 <table class="table table-hover">
   <tr class="info">
     <th>名字</th>
     <th>电子邮箱</th>
-    <th>角色</th>
+    <th>身份</th>
+    <th>&nbsp;</th>
   </tr>
   <tr ng-repeat="user in users">
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
-    <td>{{user.role}}</td>
+    <td>
+      <span ng-repeat="role in user.roles">{{role.name}} &nbsp; </span>
+    </td>
+    <td><button ng-click="editUser(user)"  data-toggle="modal" data-target="#create-update-modal">编辑</button></td>
   </tr>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="create-update-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{user.name == null ? '新建用户' : '修改用户'}}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="username">名字</label>
+            <input class="form-control" id="username" placeholder="请输入姓名" ng-model="user.name">
+          </div>
+          <div class="form-group">
+            <label for="email">电子邮箱</label>
+            <input type="email" class="form-control" id="email" placeholder="请输入电子邮箱"  ng-model="user.email">
+          </div>
+          <div class="form-group">
+            <label>角色</label><br/>
+            <div class="btn-group" data-toggle="buttons">
+              <button class="btn btn-info" ng-repeat="role in allRoles" ng-click="toggleRole(role)">{{role.name}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="saveUser()">提交</button>
+      </div>
+    </div>
+  </div>
+</div>

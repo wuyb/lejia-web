@@ -58,6 +58,26 @@ body {
   margin-top: 28px;
 }
 
+/* User management page style */
+.actions-bar {
+  margin-bottom: 20px;
+}
+
+/* errors 
+input.ng-invalid.ng-touched {
+  border-color: #FA787E;
+}
+
+input.ng-valid.ng-touched {
+  border-color: #78FA89;
+}
+*/
+.error {
+  margin-top: 10px;
+  color:#FA787E;
+  border-color:#FA787E;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

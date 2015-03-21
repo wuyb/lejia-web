@@ -20,7 +20,10 @@ angular.module('webApp')
       return Auth.isLoggedIn();
     }
     $scope.login = function(form) {
-      $scope.submitted = true;
+      form.email.$dirty = true;
+      form.password.$dirty = true;
+
+      $scope.errors.other = null;
 
       if(form.$valid) {
         Auth.login({
@@ -28,7 +31,6 @@ angular.module('webApp')
           password: $scope.user.password
         })
         .then( function(data) {
-          // we define the user session management functions/variables in root scope, after user has logged in
           $rootScope.user = Auth.getCurrentUser();
           $location.path('/dashboard');
         })

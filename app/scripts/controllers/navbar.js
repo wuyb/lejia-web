@@ -27,7 +27,7 @@ angular.module('webApp')
      * @return true if there is, otherwise false.
      */
     $scope.isAdmin = function() {
-      return $scope.isLoggedIn() && Auth.getCurrentUser().role === 'admin';
+      return Auth.isAdmin();
     }
 
     /**

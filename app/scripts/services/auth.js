@@ -110,7 +110,7 @@ angular.module('webApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
+        return currentUser.hasOwnProperty('roles');
       },
 
       /**
@@ -123,7 +123,7 @@ angular.module('webApp')
           }).catch(function() {
             cb(false);
           });
-        } else if(currentUser.hasOwnProperty('role')) {
+        } else if(currentUser.hasOwnProperty('roles')) {
           cb(true);
         } else {
           cb(false);
@@ -136,7 +136,12 @@ angular.module('webApp')
        * @return {Boolean}
        */
       isAdmin: function() {
-        return currentUser.role === 'admin';
+        for (var i in currentUser.roles) {
+          if (currentUser.roles[i].value === 'admin') {
+            return true;
+          }
+        }
+        return false;
       },
 
       /**

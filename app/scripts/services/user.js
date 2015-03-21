@@ -17,6 +17,13 @@ angular.module('webApp')
         params: {
           id:'me'
         }
+      },
+      allRoles: {
+        method: 'GET',
+        isArray: true,
+        params: {
+          id:'roles'
+        }
       }
     });
   });

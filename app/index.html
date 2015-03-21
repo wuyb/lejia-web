@@ -40,7 +40,7 @@
             <ul class="nav navbar-nav">
               <li ng-class="{active: isActive('/dashboard')}" ng-show="isLoggedIn()"><a href="#/dashboard"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 首页 </a></li>
               <li ng-class="{active: isActive('/videos')}" ng-show="isLoggedIn()"><a href="#/videos"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> 视频 </a></li>
-              <li ng-class="{active: isActive('/users')}" ng-show="isAdmin()"><a href="#/users"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户 </a></li>
+              <li ng-class="{active: isActive('/users')}" ng-show="isAdmin()" hidden><a href="#/users"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户 </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li ng-show="isLoggedIn()"><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  退出 </a></li>
