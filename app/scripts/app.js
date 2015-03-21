@@ -19,7 +19,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'services.config'
+    'services.config',
+    'angularMoment'
   ])
 
   .config(function ($routeProvider) {
@@ -82,4 +83,7 @@ angular
     });
   })
 
+  .constant('angularMomentConfig', {
+      timezone: 'Asia/Hong_Kong'
+  })
 ;

@@ -17,7 +17,7 @@
     <td>
       <span ng-repeat="role in user.roles">{{role.name}} &nbsp; </span>
     </td>
-    <td>{{user.updatedAt}}</td>
+    <td>{{user.updatedAt | amDateFormat:'MM DD YYYY, h:mm:ss a'}}</td>
     <td>{{user.updatedBy.name}}</td>
     <td><button ng-click="editUser(user)"  data-toggle="modal" data-target="#create-update-modal">编辑</button></td>
   </tr>
