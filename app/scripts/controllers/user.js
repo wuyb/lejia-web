@@ -31,10 +31,22 @@ angular.module('webApp')
       $scope.allRoles = roles;
     });
 
-    $scope.showErrors = false;
+    $scope.saveUser = function(form) {
+      form.username.$dirty = true;
+      form.email.$dirty = true;
 
-    $scope.saveUser = function() {
-      $scope.showErrors = true;
+      if(form.$valid) {
+        $scope.user.$save()
+        .then(function(user) {
+          var users = User.query(function() {
+            $scope.users = users;
+          });
+        })
+        .catch(function(err) {
+          console.log(err);
+          alert("出错了，请联系管理员。");
+        });
+      }
     }
 
     $scope.toggleRole = function(role) {
@@ -44,14 +56,23 @@ angular.module('webApp')
       } else {
         $scope.user.roles.splice(index, 1);
       }
-      console.log(JSON.stringify($scope.user));
     }
-
+    $scope.hasRole = function(role) {
+      if (!$scope.user) {
+        return false;
+      }
+      for (var i in $scope.user.roles) {
+        if ($scope.user.roles[i]._id === role._id) {
+          return true;
+        }
+      }
+      return false;
+    }
     $scope.editUser = function(user) {
-      $scope.user = user;
+      $scope.user = angular.copy(user);
     }
     $scope.addUser = function() {
-      $scope.user = {roles: []};
+      $scope.user = new User({roles: []});
     }
   }
 );
