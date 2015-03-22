@@ -31,19 +31,24 @@ angular.module('webApp')
       $scope.allRoles = roles;
     });
 
+    $scope.loading = false;
+
     $scope.saveUser = function(form) {
       form.username.$dirty = true;
       form.email.$dirty = true;
 
       if(form.$valid) {
+        $scope.loading = true;
         $scope.user.$save()
         .then(function(user) {
+          $scope.loading = false;
           $('#create-update-modal').modal('hide');
           var users = User.query(function() {
             $scope.users = users;
           });
         })
         .catch(function(err) {
+          $scope.loading = false;
           $('#create-update-modal').modal('hide');
           alert("出错了，请联系管理员。");
         });
