@@ -20,7 +20,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'services.config',
-    'angularMoment'
+    'angularMoment',
+    'angularFileUpload'
   ])
 
   .config(function ($routeProvider) {
@@ -36,6 +37,10 @@ angular
       .when('/users', {
         templateUrl: 'views/user.html',
         controller: 'UserCtrl'
+      })
+      .when('/videos', {
+        templateUrl: 'views/video.html',
+        controller: 'VideoCtrl'
       })
       .when('/404', {
         templateUrl: 'views/errors/404.html',
