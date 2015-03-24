@@ -9,10 +9,28 @@
  */
 angular.module('webApp')
   .controller('VideoCtrl', function ($scope, FileUploader, configuration, Storage, Video) {
+    // dirty trick : stop video playing after the modal is dismissed
+    $('#play-video-modal').on('hidden.bs.modal', function () {
+        var video = videojs($scope.video._id);
+        video.dispose();
+    });
+
     // get the list of videos
     var videos = Video.query(function() {
       $scope.videos = videos;
     });
+
+    $scope.play = function(video) {
+      $scope.video = video;
+      // get download token
+      Storage.getDownloadUrl(video.key, function(err, data) {
+        // start playing
+        var video = videojs($scope.video._id);
+        video.src(data.url);
+        video.play();
+      });
+    }
+
 
     //// upload related ////
     $scope.getUpToken = function(callback) {
@@ -59,13 +77,14 @@ angular.module('webApp')
         $scope.loading = true;
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
-        console.log(JSON.stringify(fileItem.file));
         // notify the server that the upload is done
         Storage.finishUpload(response.key, response.hash, fileItem.file.name, fileItem.file.size, function(data) {
           $scope.item = null;
           $scope.uploading = false;
           $scope.loading = false;
+          videos = Video.query(function() {
+            $scope.videos = videos;
+          });
         });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {

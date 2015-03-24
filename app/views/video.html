@@ -32,9 +32,17 @@
     <td>{{video.createdAt | amDateFormat:'MM DD YYYY, h:mm:ss a'}}</td>
     <td>{{video.size/1024/1024|number:3}} MB</td>
     <td>
-        <a ng-click="play(video)"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> </a> &nbsp;
+        <a ng-click="play(video)" data-toggle="modal" data-target="#play-video-modal"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> </a> &nbsp;
         <a ng-click="edit(video)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
         <a ng-click="delete(video)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a> &nbsp;
     </td>
   </tr>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="play-video-modal" tabindex="-1" role="dialog" aria-labelledby="play-video-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <video id="{{video._id}}" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'  width="640" height="264">
+    </video>
+  </div>
+</div>
