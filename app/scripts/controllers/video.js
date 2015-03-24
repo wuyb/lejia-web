@@ -30,7 +30,13 @@ angular.module('webApp')
         video.play();
       });
     }
-
+    $scope.delete = function(video) {
+      video.$delete(function() {
+        var videos = Video.query(function() {
+          $scope.videos = videos;
+        });
+      });
+    }
 
     //// upload related ////
     $scope.getUpToken = function(callback) {
