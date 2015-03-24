@@ -11,8 +11,8 @@ angular.module('webApp')
   .controller('VideoCtrl', function ($scope, FileUploader, configuration, Storage, Video) {
     // dirty trick : stop video playing after the modal is dismissed
     $('#play-video-modal').on('hidden.bs.modal', function () {
-        var video = videojs($scope.video._id);
-        video.dispose();
+        var video = videojs('video-player');
+        video.pause();
     });
 
     // get the list of videos
@@ -25,7 +25,7 @@ angular.module('webApp')
       // get download token
       Storage.getDownloadUrl(video.key, function(err, data) {
         // start playing
-        var video = videojs($scope.video._id);
+        var video = videojs('video-player');
         video.src(data.url);
         video.play();
       });
