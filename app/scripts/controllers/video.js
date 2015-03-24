@@ -30,6 +30,13 @@ angular.module('webApp')
       });
     }
 
+    $scope.resetFileSelector = function() {
+      // dirty trick to reset the file input
+      var fileSelector = $('#file-selector');
+      fileSelector.wrap('<form>').closest('form').get(0).reset();
+      fileSelector.unwrap();
+    }
+
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
         console.info('onWhenAddingFileFailed', item, filter, options);
     };
@@ -60,13 +67,13 @@ angular.module('webApp')
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
         console.info('onCancelItem', fileItem, response, status, headers);
-        fileItem.remove();
         $scope.item = null;
         $scope.uploading = false;
         $scope.loading = false;
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
         console.info('onCompleteItem', fileItem, response, status, headers);
+        $scope.resetFileSelector();
     };
 
   });

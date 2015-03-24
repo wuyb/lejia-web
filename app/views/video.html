@@ -1,6 +1,6 @@
 <div class="well my-drop-zone" nv-file-over="" nv-file-drop="" uploader="uploader">
     <h4 class="header-to-right"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传视频 </h4>
-    <input type="file" nv-file-select="" uploader="uploader" ng-hide="uploading" />
+    <input type="file" nv-file-select="" uploader="uploader" ng-hide="uploading" id="file-selector" />
     <div ng-show="uploading" class="file-upload-status-panel">
         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" data-loading></span>
         <strong>{{ item.file.name }}</strong>
@@ -11,7 +11,7 @@
         </div>
         <div>
             正在上传，请不要刷新浏览器或关闭页面。
-            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" style="float:right" ng-show="uploading">
+            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" style="float:right" ng-show="uploading">
                 <span class="glyphicon glyphicon-ban-circle"></span> 取消
             </button>
         </div>
