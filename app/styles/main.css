@@ -83,6 +83,7 @@ input.ng-valid.ng-touched {
     -webkit-animation: spin2 .7s infinite linear;
 }
 
+/* loading indicator */
 @-webkit-keyframes spin2 {
     from { -webkit-transform: rotate(0deg);}
     to { -webkit-transform: rotate(360deg);}
@@ -91,6 +92,24 @@ input.ng-valid.ng-touched {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+/* video management page */
+.my-drop-zone {
+  border: dotted 1px lightgray;
+}
+.nv-file-over {
+  border: dotted 1px red;
+}
+.header-to-right {
+  float:right;
+  margin-top: -3px;
+}
+.file-upload-status-panel {
+}
+.progress {
+  margin-top: 15px;
+  margin-right: 10px;
 }
 
 /* Responsive: Portrait tablets and up */

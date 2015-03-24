@@ -18,7 +18,9 @@ angular.module('webApp')
 
     // configure the uploader
     var uploader = $scope.uploader = new FileUploader({
-      url: 'http://up.qiniu.com'
+      url: 'http://up.qiniu.com',
+      queueLimit: 1,
+      removeAfterUpload: true
     });
 
     $scope.upload = function(item) {
@@ -33,25 +35,24 @@ angular.module('webApp')
     };
     uploader.onAfterAddingFile = function(fileItem) {
         console.info('onAfterAddingFile', fileItem);
-    };
-    uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        $scope.upload(fileItem);
+        $scope.item = fileItem;
+        $scope.uploading = true;
+        $scope.loading = true;
     };
     uploader.onBeforeUploadItem = function(item) {
         console.info('onBeforeUploadItem', item);
         console.log(JSON.stringify(item.formData));
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
-    };
-    uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         console.info('onSuccessItem', fileItem, response, status, headers);
         // notify the server that the upload is done
         Storage.finishUpload(response.key, response.hash, function(data) {
-
+          $scope.item = null;
+          $scope.uploading = false;
+          $scope.loading = false;
         });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
@@ -59,12 +60,13 @@ angular.module('webApp')
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
         console.info('onCancelItem', fileItem, response, status, headers);
+        fileItem.remove();
+        $scope.item = null;
+        $scope.uploading = false;
+        $scope.loading = false;
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
         console.info('onCompleteItem', fileItem, response, status, headers);
-    };
-    uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
     };
 
   });
