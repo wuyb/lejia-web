@@ -8,8 +8,13 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('VideoCtrl', function ($scope, FileUploader, configuration, Storage) {
+  .controller('VideoCtrl', function ($scope, FileUploader, configuration, Storage, Video) {
+    // get the list of videos
+    var videos = Video.query(function() {
+      $scope.videos = videos;
+    });
 
+    //// upload related ////
     $scope.getUpToken = function(callback) {
       Storage.getUpToken(function(err, token) {
         callback(token.uptoken);
@@ -55,8 +60,9 @@ angular.module('webApp')
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         console.info('onSuccessItem', fileItem, response, status, headers);
+        console.log(JSON.stringify(fileItem.file));
         // notify the server that the upload is done
-        Storage.finishUpload(response.key, response.hash, function(data) {
+        Storage.finishUpload(response.key, response.hash, fileItem.file.name, fileItem.file.size, function(data) {
           $scope.item = null;
           $scope.uploading = false;
           $scope.loading = false;
