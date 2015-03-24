@@ -1,6 +1,6 @@
 <div class="well my-drop-zone" nv-file-over="" nv-file-drop="" uploader="uploader">
     <h4 class="header-to-right"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> 上传视频 </h4>
-    <input type="file" nv-file-select="" uploader="uploader" ng-hide="uploading" id="file-selector" />
+    <input type="file" nv-file-select="" uploader="uploader" ng-hide="uploading" id="file-selector"  accept="video/avi, video/mp4, video/mpeg, video/x-msvideo, video/x-ms-wmv, video/quicktime"/>
     <div ng-show="uploading" class="file-upload-status-panel">
         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" data-loading></span>
         <strong>{{ item.file.name }}</strong>

@@ -22,6 +22,14 @@ angular.module('webApp')
       queueLimit: 1,
       removeAfterUpload: true
     });
+    uploader.filters.push({
+        name: 'videoFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            console.log(type);
+            return '|x-msvideo|x-ms-wmv|quicktime|mp4|avi|mpeg|'.indexOf(type) !== -1;
+        }
+    });
 
     $scope.upload = function(item) {
       $scope.getUpToken(function(token) {
