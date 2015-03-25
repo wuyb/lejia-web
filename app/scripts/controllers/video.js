@@ -8,7 +8,7 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('VideoCtrl', function ($scope, $location, $filter, FileUploader, configuration, Storage, Video, Auth) {
+  .controller('VideoCtrl', function ($scope, $location, $filter, $window, FileUploader, configuration, Storage, Video, Auth) {
     // user must login and have admin or editor role in order to access this page
     if (!Auth.isLoggedIn()) {
       $location.path('/');
@@ -58,6 +58,10 @@ angular.module('webApp')
       });
     }
     $scope.delete = function(video) {
+      if (!$window.confirm('确定要删除吗？')) {
+        return;
+      }
+
       video.$delete(function() {
         var videos = Video.query(function() {
           $scope.videos = videos;
