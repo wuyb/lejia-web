@@ -8,7 +8,17 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('VideoCtrl', function ($scope, FileUploader, configuration, Storage, Video) {
+  .controller('VideoCtrl', function ($scope, $location, FileUploader, configuration, Storage, Video, Auth) {
+    // user must login and have admin or editor role in order to access this page
+    if (!Auth.isLoggedIn()) {
+      $location.path('/');
+      return;
+    }
+    if (!Auth.isAdmin() && !Auth.hasRole('editor')) {
+      $location.path('/404');
+      return;
+    }
+
     // dirty trick : stop video playing after the modal is dismissed
     $('#play-video-modal').on('hidden.bs.modal', function () {
         var video = videojs('video-player');

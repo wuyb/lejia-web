@@ -86,5 +86,13 @@ angular.module('webApp')
     $scope.addUser = function() {
       $scope.user = new User({roles: []});
     }
+
+    $scope.closeUser = function(user) {
+      user.$delete(function() {
+        var users = User.query(function() {
+          $scope.users = users;
+        });
+      });
+    }
   }
 );

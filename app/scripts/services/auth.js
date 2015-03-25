@@ -145,6 +145,20 @@ angular.module('webApp')
       },
 
       /**
+       * Check if a user is an editor
+       *
+       * @return {Boolean}
+       */
+      hasRole: function(role) {
+        for (var i in currentUser.roles) {
+          if (currentUser.roles[i].value === role) {
+            return true;
+          }
+        }
+        return false;
+      },
+
+      /**
        * Get auth token
        */
       getToken: function() {
