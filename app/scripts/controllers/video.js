@@ -38,6 +38,10 @@ angular.module('webApp')
       return $scope.videos;
     }
 
+    $scope.canEdit = function(video) {
+      return Auth.isAdmin() || video.createdBy._id === Auth.getCurrentUser()._id;
+    }
+
     // get the list of videos
     var videos = Video.query(function() {
       $scope.videos = videos;

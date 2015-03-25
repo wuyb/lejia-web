@@ -39,8 +39,8 @@
     <td>{{video.size/1024/1024|number:3}} MB</td>
     <td>
         <a ng-click="play(video)" data-toggle="modal" data-target="#play-video-modal"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> </a> &nbsp;
-        <a ng-click="edit(video)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
-        <a ng-click="delete(video)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a> &nbsp;
+        <a ng-click="edit(video)" ng-show="canEdit(video)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
+        <a ng-click="delete(video)" ng-show="canEdit(video)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a> &nbsp;
     </td>
   </tr>
 </table>
