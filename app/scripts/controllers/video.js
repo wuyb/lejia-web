@@ -8,7 +8,7 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('VideoCtrl', function ($scope, $location, FileUploader, configuration, Storage, Video, Auth) {
+  .controller('VideoCtrl', function ($scope, $location, $filter, FileUploader, configuration, Storage, Video, Auth) {
     // user must login and have admin or editor role in order to access this page
     if (!Auth.isLoggedIn()) {
       $location.path('/');
@@ -24,6 +24,19 @@ angular.module('webApp')
         var video = videojs('video-player');
         video.pause();
     });
+
+    $scope.mineOnly = false;
+
+    $scope.getVideos = function() {
+      if ($scope.mineOnly) {
+        return $filter('filter')($scope.videos,
+          function(video, index) {
+            return video.createdBy._id === Auth.getCurrentUser()._id;
+          }
+        );
+      }
+      return $scope.videos;
+    }
 
     // get the list of videos
     var videos = Video.query(function() {

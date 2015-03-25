@@ -18,6 +18,12 @@
     </div>
 </div>
 
+<div class="pull-right video-filter-header">
+    <label>
+      <input type="checkbox" ng-model="mineOnly"> 只看自己
+    </label>
+</div>
+
 <table class="table table-hover">
   <tr class="info">
     <th>名称</th>
@@ -26,7 +32,7 @@
     <th>大小</th>
     <th>&nbsp;</th>
   </tr>
-  <tr ng-repeat="video in videos">
+  <tr ng-repeat="video in getVideos()">
     <td>{{video.name}}</td>
     <td>{{video.createdBy.name}}</td>
     <td>{{video.createdAt | amDateFormat:'MM DD YYYY, h:mm:ss a'}}</td>
