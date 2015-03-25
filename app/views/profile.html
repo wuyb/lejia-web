@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <form name="form" ng-submit="updatePassword(form)">
+    <div class="form-group"  ng-class="{'has-error':  form.oldPassword.$dirty && form.oldPassword.$invalid || errors.other != null}">
+      <input type="password" class="form-control" required name="oldPassword" id="oldPassword" placeholder="请输入您的原密码" ng-model="oldPassword">
+    </div>
+    <div class="form-group"  ng-class="{'has-error':  form.password.$dirty && form.password.$invalid || errors.other != null}">
+      <input type="password" class="form-control" required name="password" id="password" placeholder="请输入您的新密码" ng-model="password">
+    </div>
+    <div class="form-group"  ng-class="{'has-error':  form.reenterPassword.$dirty && form.reenterPassword.$invalid || errors.other != null}">
+      <input type="password" class="form-control" required name="reenterPassword" id="reenterPassword" placeholder="请再次输入您的新密码" ng-model="reenterPassword" ng-change="checkPassword(form)">
+    </div>
+    <button type="submit" class="btn btn-default">修改密码</button>
+    <div>
+      <div class="error">{{error}}</div>
+    </div>
+  </form>
+</div>

@@ -38,6 +38,10 @@ angular
         templateUrl: 'views/user.html',
         controller: 'UserCtrl'
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
       .when('/videos', {
         templateUrl: 'views/video.html',
         controller: 'VideoCtrl'

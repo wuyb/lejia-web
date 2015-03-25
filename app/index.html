@@ -44,6 +44,7 @@
               <li ng-class="{active: isActive('/users')}" ng-show="isAdmin()" hidden><a href="#/users"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 用户 </a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li ng-show="isLoggedIn()"><a href="#/profile"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a></li>
               <li ng-show="isLoggedIn()"><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  退出 </a></li>
             </ul>
           </div>
@@ -92,6 +93,7 @@
         <script src="scripts/controllers/navbar.js"></script>
         <script src="scripts/controllers/error.js"></script>
         <script src="scripts/controllers/video.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
         <script src="scripts/services/config.js"></script>
         <script src="scripts/services/user.js"></script>
         <script src="scripts/services/auth.js"></script>
