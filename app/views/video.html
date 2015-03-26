@@ -24,6 +24,14 @@
     </label>
 </div>
 
+<div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-repeat="category in categories" ng-class="{active: category.value == currentCategory.value}">
+            <a ng-click="switchCategory(category)" >{{category.name}}</a>
+        </li>
+    </ul>
+</div>
+
 <table class="table table-hover">
   <tr class="info">
     <th>名称</th>
@@ -39,7 +47,7 @@
     <td>{{video.size/1024/1024|number:3}} MB</td>
     <td>
         <a ng-click="play(video)" data-toggle="modal" data-target="#play-video-modal"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> </a> &nbsp;
-        <a ng-click="edit(video)" ng-show="canEdit(video)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
+        <a ng-click="edit(video)"  data-toggle="modal" data-target="#video-metadata-modal" ng-show="canEdit(video)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a> &nbsp;
         <a ng-click="delete(video)" ng-show="canEdit(video)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </a> &nbsp;
     </td>
   </tr>
@@ -50,5 +58,24 @@
   <div class="modal-dialog">
     <video id="video-player" class="video-js vjs-default-skin" controls preload="auto" data-setup='{}'  width="640" height="264">
     </video>
+  </div>
+</div>
+
+<div class="modal fade" id="video-metadata-modal" tabindex="-1" role="dialog" aria-labelledby="video-metadata-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">视频详情</h4>
+      </div>
+      <div class="modal-body">
+        <form name="form">
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="saveVideoMetadata(form)"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" data-loading></span> 提交</button>
+      </div>
   </div>
 </div>

@@ -6,5 +6,13 @@ angular.module('webApp')
       id: '@_id'
     },
     {
+
+      getCategories: {
+        method: 'GET',
+        params: {
+          id:'categories'
+        },
+        isArray: true
+      }
     });
   });

@@ -38,14 +38,19 @@ angular.module('webApp')
       return $scope.videos;
     }
 
+    var videos = [];
+    var categories = Video.getCategories(function() {
+      $scope.categories = categories;
+      $scope.currentCategory = categories[0];
+      videos = Video.query(function() {
+        $scope.videos = videos;
+      });
+    });
+
     $scope.canEdit = function(video) {
       return Auth.isAdmin() || video.createdBy._id === Auth.getCurrentUser()._id;
     }
 
-    // get the list of videos
-    var videos = Video.query(function() {
-      $scope.videos = videos;
-    });
 
     $scope.play = function(video) {
       $scope.video = video;
@@ -67,6 +72,10 @@ angular.module('webApp')
           $scope.videos = videos;
         });
       });
+    }
+
+    $scope.switchCategory = function(category) {
+      $scope.currentCategory = category;
     }
 
     //// upload related ////
