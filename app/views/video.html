@@ -20,7 +20,7 @@
 
 <div class="pull-right video-filter-header">
     <label>
-      <input type="checkbox" ng-model="mineOnly"> 只看自己
+      <input type="checkbox" ng-model="mineOnly"> 我的视频
     </label>
 </div>
 
@@ -28,6 +28,9 @@
     <ul class="nav nav-tabs">
         <li role="presentation" ng-repeat="category in categories" ng-class="{active: category.value == currentCategory.value}">
             <a ng-click="switchCategory(category)" >{{category.name}}</a>
+        </li>
+        <li role="presentation" ng-class="{active: currentCategory == undefined}">
+            <a ng-click="switchCategory()" >尚未归类</a>
         </li>
     </ul>
 </div>

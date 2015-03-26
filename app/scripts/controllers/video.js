@@ -38,13 +38,9 @@ angular.module('webApp')
       return $scope.videos;
     }
 
-    var videos = [];
-    var categories = Video.getCategories(function() {
-      $scope.categories = categories;
-      $scope.currentCategory = categories[0];
-      videos = Video.query(function() {
-        $scope.videos = videos;
-      });
+    $scope.categories = Video.getCategories(function() {
+      $scope.currentCategory = $scope.categories[0];
+      $scope.videos = Video.query({'category':$scope.currentCategory.value});
     });
 
     $scope.canEdit = function(video) {
@@ -68,14 +64,20 @@ angular.module('webApp')
       }
 
       video.$delete(function() {
-        var videos = Video.query(function() {
-          $scope.videos = videos;
-        });
+        $scope.reloadCategory($scope.currentCategory);
       });
     }
 
+    $scope.reloadCategory = function(category) {
+      if ($scope.currentCategory) {
+        $scope.videos = Video.query({'category':$scope.currentCategory.value});
+      } else {
+        $scope.videos = Video.query({'category':'none'});
+      }
+    }
     $scope.switchCategory = function(category) {
       $scope.currentCategory = category;
+      $scope.reloadCategory(category);
     }
 
     //// upload related ////
@@ -128,9 +130,7 @@ angular.module('webApp')
           $scope.item = null;
           $scope.uploading = false;
           $scope.loading = false;
-          videos = Video.query(function() {
-            $scope.videos = videos;
-          });
+          $scope.reloadCategory($scope.currentCategory);
         });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
