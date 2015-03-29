@@ -73,7 +73,16 @@
       </div>
       <div class="modal-body">
         <form name="form">
-
+            <label>视频类别：</label>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="categoryMenu" data-toggle="dropdown" aria-expanded="true">
+                {{video && video.category ? video.category.name : '选择类别'}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="categoryMenu">
+                <li ng-repeat="category in categories" role="presentation"><a role="menuitem" ng-click="setVideoCategory(category)">{{category.name}}</a></li>
+              </ul>
+            </div>
         </form>
       </div>
       <div class="modal-footer">

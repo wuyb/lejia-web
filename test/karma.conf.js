@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-file-upload/angular-file-upload.js',
+      'bower_components/video.js/dist/video-js/video.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

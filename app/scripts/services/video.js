@@ -6,7 +6,9 @@ angular.module('webApp')
       id: '@_id'
     },
     {
-
+      update: {
+        method: 'PUT'
+      },
       getCategories: {
         method: 'GET',
         params: {

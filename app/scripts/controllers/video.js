@@ -70,7 +70,7 @@ angular.module('webApp')
 
     $scope.reloadCategory = function(category) {
       if ($scope.currentCategory) {
-        $scope.videos = Video.query({'category':$scope.currentCategory.value});
+        $scope.videos = Video.query({'category': $scope.currentCategory.value});
       } else {
         $scope.videos = Video.query({'category':'none'});
       }
@@ -78,6 +78,28 @@ angular.module('webApp')
     $scope.switchCategory = function(category) {
       $scope.currentCategory = category;
       $scope.reloadCategory(category);
+    }
+
+    /// edit video metadata ///
+    $scope.edit = function(video) {
+      $scope.video = angular.copy(video);
+    }
+
+    $scope.setVideoCategory = function(category) {
+      $scope.video.category = category;
+    }
+
+    $scope.saveVideoMetadata = function(form) {
+      $scope.loading = true;
+      $scope.video.$update().then(function(video) {
+        $scope.loading = false;
+        $scope.reloadCategory($scope.currentCategory);
+        $('#video-metadata-modal').modal('hide');
+      }).catch(function(err) {
+        console.log('Cannot save video metadata : ' + JSON.stringify(err));
+        $scope.loading = false;
+        $('#video-metadata-modal').modal('hide');
+      })
     }
 
     //// upload related ////
@@ -126,11 +148,13 @@ angular.module('webApp')
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         // notify the server that the upload is done
-        Storage.finishUpload(response.key, response.hash, fileItem.file.name, fileItem.file.size, function(data) {
+        Storage.finishUpload(response.key, response.hash, fileItem.file.name, fileItem.file.size, function(err, data) {
           $scope.item = null;
           $scope.uploading = false;
           $scope.loading = false;
-          $scope.reloadCategory($scope.currentCategory);
+          // when uploading has been done, show the edit modal
+          $('#video-metadata-modal').modal('show');
+          $scope.edit(new Video(data.video));
         });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
